@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Controle MKR WiFi</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+    button { padding: 10px 20px; margin: 10px; font-size: 16px; }
+    #status { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Arduino MKR WiFi Hotspot</h1>
+  <button onclick="connectToArduino()">Conectar ao Arduino</button>
+  <div id="status">Status: Desconectado</div>
+  <div id="response"></div>
+
+  <script>
+    const arduinoIP = "http://192.168.4.1"; // IP padrão do AP do Arduino
+
+    function connectToArduino() {
+      fetch(arduinoIP)
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('status').innerText = "Status: Conectado";
+          document.getElementById('response').innerHTML = data;
+        })
+        .catch(err => {
+          document.getElementById('status').innerText = "Status: Erro ao conectar";
+          document.getElementById('response').innerText = err;
+        });
+    }
+  </script>
+</body>
+</html>
