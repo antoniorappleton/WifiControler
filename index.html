@@ -3,6 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Controle MKR WiFi</title>
+
+  <!-- PWA -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2196f3">
+  <link rel="manifest" href="manifest.json">
+
   <style>
     body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
     button { padding: 10px 20px; margin: 10px; font-size: 16px; }
@@ -29,6 +35,15 @@
           document.getElementById('status').innerText = "Status: Erro ao conectar";
           document.getElementById('response').innerText = err;
         });
+    }
+
+    // Registar o service worker (PWA)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(reg => console.log('Service worker registado:', reg.scope))
+          .catch(err => console.error('Erro ao registar service worker:', err));
+      });
     }
   </script>
 </body>
